@@ -9,7 +9,7 @@ const createProductType = (req, resp)=> {
     let bodyReq =req.body;
     // validate
     if (!bodyReq.name) {
-        resp.status(400).json({
+      return  resp.status(400).json({
             status: "Error 400: Bad Request",
             message: "name is required"
         })
@@ -22,13 +22,13 @@ const createProductType = (req, resp)=> {
     }
     productTypeModel.create(createProductType, ( err , data) => {
         if (err) {
-            resp.status(500).json({
+            return   resp.status(500).json({
                 status: "Error 500: Internal server error",
                 message: err.message
             })
         } else {
 
-            resp.status(201).json({
+            return  resp.status(201).json({
                 status: "Success: ProductType created",
                 data: data
             });
@@ -43,25 +43,26 @@ const getAllProductType = (req,resp) => {
     //thao tac
     productTypeModel.find((err, data)=> {
         if (err) {
-            resp.status(500).json({
+            return   resp.status(500).json({
                 status: "Error 500: Internal server error",
                 message: err.message
             })
         } else {
 
-            resp.status(200).json({
+            return   resp.status(200).json({
                 status: "Success: Get ProductType success",
                 data: data
             });
         }
     } )
 }
+// GEt By ID
 const getProductTypeByID = (req, resp) => {
     //chuan bi
     let productTypeId = req.params.productTypeId;
      //2: validate
      if (!mongoose.Types.ObjectId.isValid(productTypeId)) {
-        resp.status(400).json({
+        return  resp.status(400).json({
             status: "Error 400: Bad Request",
             message: "productTypeId is  not valid"
         });
@@ -69,13 +70,13 @@ const getProductTypeByID = (req, resp) => {
     // thao tac
     productTypeModel.findById(productTypeId , (err , data) => {
         if (err) {
-            resp.status(500).json({
+            return  resp.status(500).json({
                 status: "Error 500: Internal server error",
                 message: err.message
             })
         } else {
 
-            resp.status(200).json({
+            return  resp.status(200).json({
                 status: "Success: Get productType By ID success",
                 data: data
             });
@@ -92,7 +93,7 @@ const updateProductType = (req, resp) => {
     let bodyReq = req.body;
     //validate
     if (!mongoose.Types.ObjectId.isValid(productTypeId)) {
-        resp.status(400).json({
+        return   resp.status(400).json({
             status: "Error 400: Bad Request",
             message: "productTypeId is  not valid"
         });
@@ -104,13 +105,13 @@ const updateProductType = (req, resp) => {
     }
     productTypeModel.findByIdAndUpdate(productTypeId , productTypeUpdate, (err , data) => {
         if (err) {
-            resp.status(500).json({
+            return  resp.status(500).json({
                 status: "Error 500: Internal server error",
                 message: err.message
             })
         } else {
 
-            resp.status(200).json({
+            return resp.status(200).json({
                 status: "Success: Put Product Type success",
                 data: data
             });
@@ -125,7 +126,7 @@ const deleteProductType = (req , resp) => {
     let productTypeId = req.params.productTypeId;
     // validate
     if (!mongoose.Types.ObjectId.isValid(productTypeId)) {
-        resp.status(400).json({
+        return  resp.status(400).json({
             status: "Error 400: Bad Request",
             message: "productTypeId is  not valid"
         });
@@ -133,12 +134,12 @@ const deleteProductType = (req , resp) => {
     // thao tac
     productTypeModel.findByIdAndDelete(productTypeId , (err, data) => {
         if (err) {
-            resp.status(500).json({
+            return  resp.status(500).json({
                 status: "Error 500: Internal server error",
                 message: err.message
             })
         } else {
-            resp.status(204).json({
+            return resp.status(204).json({
                 status: "Success: Delete ProductType success",
             });
         }

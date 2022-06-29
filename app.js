@@ -6,6 +6,8 @@ const port = 8000;
 
 // import router
 const productTypeRouter = require('./app/router/productTypeRouter');
+const productRouter = require('./app/router/productRouter');
+const customerRouter =require('./app/router/customerRouter');
 
 
 /// middleware doc du lieu UTF8 && JSon
@@ -27,6 +29,8 @@ mongoose.connect("mongodb://localhost:27017/CRUD_Shop24h" , (error) => {
 
 // chay router
 app.use("/" , productTypeRouter);
+app.use("/" , productRouter);
+app.use("/" , customerRouter);
 
 // chay cong
 app.listen(port , () => {
