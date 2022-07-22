@@ -76,8 +76,31 @@ const createProduct = (req, resp) => {
 
 //GET ALL
 const getAllProduct = (req, resp) => {
+    const {name , type , min , max } = req.query;
+    let limit = req.query.limit;
+    let skip = req.query.skip;
+    let condition = {};
+    if (limit) {
+        condition.limit = limit;
+    }
+    if (skip) {
+        condition.skip = skip;
+    }
+    if(name) {
+        const regex = new RegExp(`${name}`);
+        condition.name = regex;
+    }
+    if(type) {
+        const regexType = new RegExp(`${type}`);
+        condition.type = regexType;
+    }
+    if(min && max) {
+       condition.promotionPrice ={
+        ...condition.promotionPrice,$gte: min, $lte: max 
+       }
+    }
      //thao tac
-     productModel.find((err, data)=> {
+     productModel.find(condition).skip(skip).limit(limit).exec((err, data) => {
         if (err) {
             return   resp.status(500).json({
                 status: "Error 500: Internal server error",
