@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 // import router
 const productTypeRouter = require('./app/router/productTypeRouter');
@@ -43,6 +43,6 @@ app.use("/", customerRouter);
 app.use("/", orderRouter);
 
 // chay cong
-app.listen( process.env.PORT || port, () => {
+app.listen(  port, () => {
     console.log("app listening on port" + port);
 })
