@@ -44,5 +44,5 @@ app.use("/", orderRouter);
 
 // chay cong
 app.listen( process.env.PORT || port, () => {
-    console.log("app listening on port" + process.env.PORT || port ,  this.address().port, app.settings.env);
+    console.log("app listening on port" + process.env.PORT || port );
 })
